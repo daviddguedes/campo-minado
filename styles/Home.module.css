@@ -1,0 +1,18 @@
+.tooltip_container {
+  opacity: 0;
+  position: absolute;
+  background-color: rgb(14, 13, 13);
+  color: aliceblue;
+  border: 2px solid;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+#x_axis, #y_axis {
+  font-size: 15px;
+}
+
+.filled {
+  background: rgb(131,58,180);
+  background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,220,29,1) 50%, rgba(252,176,69,1) 100%);
+}
