@@ -10,7 +10,7 @@ export default function Home() {
   const containerRef = useRef(null);
   const svgGroupRef = useRef();
   const [tooltipVars, setTooltipVars] = useState(null);
-  const margin = { top: 5, right: 25, bottom: 30, left: 40 };
+  const margin = { top: 5, right: 25, bottom: 30, left: 25 };
   const width = clientWidth - margin.left - margin.right;
   const height = clientHeight - margin.top - margin.bottom;
   const svgWidth = width + margin.left + margin.right;
@@ -43,6 +43,8 @@ export default function Home() {
           d3.axisBottom(x)
             .tickSize(0)
         )
+        .select(".domain").remove()
+        .select(".tick").remove()
 
       const y = d3.scaleBand()
         .range([height, 0])
@@ -54,6 +56,8 @@ export default function Home() {
           d3.axisLeft(y)
             .tickSize(0)
         )
+        .select(".domain").remove()
+        .select(".tick").remove()
 
       const mousemove = function (event, d) {
         event.preventDefault();
@@ -62,16 +66,17 @@ export default function Home() {
         if (arr.includes(value + 1)) {
           d3.select(this)
             .attr("xlink:href", "https://previews.123rf.com/images/fil101/fil1011109/fil101110900010/10589503-furbul-cg-character-with-a-question-mark-hovering-above-his-head-.jpg")
-          setTooltipVars(state => ({ ...d, clientX, clientY, opacity: 1, message: "Boooom!!!" }));
+            // setTooltipVars(state => ({ ...d, clientX, clientY, opacity: 1, message: "Boooom!!!" }));
         } else {
-          setTooltipVars(state => ({ ...d, clientX, clientY, opacity: 1, message: "Ufa!!!" }));
+          d3.select(this).attr("opacity", 0.1)
+          // setTooltipVars(state => ({ ...d, clientX, clientY, opacity: 1, message: "Ufa!!!" }));
         }
       }
       const mouseleave = function (event) {
         event.preventDefault();
-        setTooltipVars(state => ({ ...state, opacity: 0 }));
-        d3.select(this)
-          .style("opacity", 1)
+        // setTooltipVars(state => ({ ...state, opacity: 0 }));
+        // d3.select(this)
+        //   .style("opacity", 1)
       }
 
       const groups = svgGroup.selectAll()
@@ -120,12 +125,12 @@ export default function Home() {
             <g className="y-axis"></g>
           </g>
         </svg>}
-        {tooltipVars
+        {/* {tooltipVars
           && <TooltipComponent
             d={tooltipVars}
             width={clientWidth}
             height={clientHeight}
-          />}
+          />} */}
       </div>
 
     </div>
