@@ -1,15 +1,13 @@
 import Head from 'next/head'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import * as d3 from 'd3';
 import data from './../data.json';
 import useWindowSize from '../hooks/windowSize';
-import TooltipComponent from '../components/Tooltip';
 
 export default function Home() {
   const { clientWidth, clientHeight } = useWindowSize();
   const containerRef = useRef(null);
   const svgGroupRef = useRef();
-  const [tooltipVars, setTooltipVars] = useState(null);
   const margin = { top: 5, right: 25, bottom: 30, left: 25 };
   const width = clientWidth - margin.left - margin.right;
   const height = clientHeight - margin.top - margin.bottom;
@@ -61,22 +59,16 @@ export default function Home() {
 
       const mousemove = function (event, d) {
         event.preventDefault();
-        const { clientX, clientY } = event;
         const value = data.findIndex(el => el.value === d.value);
         if (arr.includes(value + 1)) {
           d3.select(this)
             .attr("xlink:href", "https://previews.123rf.com/images/fil101/fil1011109/fil101110900010/10589503-furbul-cg-character-with-a-question-mark-hovering-above-his-head-.jpg")
-            // setTooltipVars(state => ({ ...d, clientX, clientY, opacity: 1, message: "Boooom!!!" }));
         } else {
           d3.select(this).attr("opacity", 0.1)
-          // setTooltipVars(state => ({ ...d, clientX, clientY, opacity: 1, message: "Ufa!!!" }));
         }
       }
       const mouseleave = function (event) {
         event.preventDefault();
-        // setTooltipVars(state => ({ ...state, opacity: 0 }));
-        // d3.select(this)
-        //   .style("opacity", 1)
       }
 
       const groups = svgGroup.selectAll()
@@ -125,12 +117,6 @@ export default function Home() {
             <g className="y-axis"></g>
           </g>
         </svg>}
-        {/* {tooltipVars
-          && <TooltipComponent
-            d={tooltipVars}
-            width={clientWidth}
-            height={clientHeight}
-          />} */}
       </div>
 
     </div>
