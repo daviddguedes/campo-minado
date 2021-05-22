@@ -15,6 +15,11 @@ a {
   box-sizing: border-box;
 }
 
+.container-app, .container-ref {
+  width: 100vw;
+  height: 100vh;
+}
+
 /* .tick {
   visibility: hidden;
 } */
