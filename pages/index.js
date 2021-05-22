@@ -8,14 +8,16 @@ import TooltipComponent from '../components/Tooltip';
 export default function Home() {
   const { clientWidth, clientHeight } = useWindowSize();
   const containerRef = useRef(null);
+  const svgGroupRef = useRef();
   const [tooltipVars, setTooltipVars] = useState(null);
+  const margin = { top: 5, right: 25, bottom: 30, left: 40 };
+  const width = clientWidth - margin.left - margin.right;
+  const height = clientHeight - margin.top - margin.bottom;
+  const svgWidth = width + margin.left + margin.right;
+  const svgHeight = height + margin.top + margin.bottom;
 
   useEffect(() => {
     if (containerRef.current && clientWidth && clientHeight) {
-      const margin = { top: 5, right: 25, bottom: 30, left: 40 };
-      const width = clientWidth - margin.left - margin.right;
-      const height = clientHeight - margin.top - margin.bottom;
-
       let arr = [];
       while (arr.length < 5) {
         let num = Math.floor(Math.random() * data.length) + 1;
@@ -24,13 +26,8 @@ export default function Home() {
         }
       }
 
-      const svg = d3.select(containerRef.current)
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+      const svgGroup = d3.select(svgGroupRef.current)
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       const xData = d3.map(data, function (d) { return d.group; });
       const yData = d3.map(data, function (d) { return d.variable; });
@@ -39,7 +36,7 @@ export default function Home() {
         .range([0, width])
         .domain(xData)
         .padding(0.05)
-      svg.append("g")
+      d3.select(".x-axis")
         .style("font-size", 12)
         .attr("transform", "translate(0," + height + ")")
         .call(
@@ -51,7 +48,7 @@ export default function Home() {
         .range([height, 0])
         .domain(yData)
         .padding(0.05)
-      svg.append("g")
+      d3.select(".y-axis")
         .style("font-size", 12)
         .call(
           d3.axisLeft(y)
@@ -61,11 +58,10 @@ export default function Home() {
       const mousemove = function (event, d) {
         event.preventDefault();
         const { clientX, clientY } = event;
-        const value = data.findIndex(el => el.value === d.value)
+        const value = data.findIndex(el => el.value === d.value);
         if (arr.includes(value + 1)) {
-          console.log("Explodiu...");
           d3.select(this)
-            .style("fill", "purple")
+            .attr("xlink:href", "https://previews.123rf.com/images/fil101/fil1011109/fil101110900010/10589503-furbul-cg-character-with-a-question-mark-hovering-above-his-head-.jpg")
           setTooltipVars(state => ({ ...d, clientX, clientY, opacity: 1, message: "Boooom!!!" }));
         } else {
           setTooltipVars(state => ({ ...d, clientX, clientY, opacity: 1, message: "Ufa!!!" }));
@@ -78,32 +74,36 @@ export default function Home() {
           .style("opacity", 1)
       }
 
-      svg.selectAll()
-        .data(data, function (d) { return d.value; })
-        .join("rect")
-        .attr("x", function (d) { return x(d.group) })
-        .attr("y", function (d) { return y(d.variable) })
-        .attr("width", x.bandwidth())
-        .attr("height", y.bandwidth())
-        .style("fill", function (ev, d) {
-          // if (arr.includes(d + 1)) {
-          //   return "purple";
-          // }
-          return "olive";
-        })
-        .on("click", mousemove)
-        .on("mouseleave", mouseleave)
+      const groups = svgGroup.selectAll()
+        .data(data)
+        .join("g")
+        .attr("transform", d => `translate(${x(d.group)},${y(d.variable)})`)
 
-      svg.selectAll()
-        .data(data, function (d) { return d.value; })
-        .join("text")
-        .attr("x", function (d) { return x(d.group) + x.bandwidth() / 4 })
-        .attr("y", function (d) { return y(d.variable) + 20 })
-        .text(function (d) { return d.value })
-        .on("click", mousemove)
+      groups.each(function (d) {
+        d3.select(this)
+          .append("defs").selection()
+          .append("clipPath").attr("id", d.value).selection()
+          .append("rect")
+          .attr("width", x.bandwidth())
+          .attr("height", y.bandwidth())
+          .attr("fill", "steelblue")
+
+        d3.select(this)
+          .append("image")
+          .attr("xlink:href", "https://previews.123rf.com/images/blankstock/blankstock1605/blankstock160503065/56324157-question-mark-sign-icon-help-symbol-faq-sign-orange-circle-button-with-icon-vector.jpg") 
+          .attr("width", x.bandwidth())
+          .attr("height", y.bandwidth())
+          .attr("clip-path", `url(#${d.value})`)
+          .on("click", mousemove)
+          .on("mouseleave", mouseleave);
+      })
     }
 
   }, [clientWidth, clientHeight]);
+
+  const hasSvgDimensions = () => {
+    return (!isNaN(svgWidth) && !isNaN(svgHeight));
+  }
 
   return (
     <div>
@@ -114,6 +114,12 @@ export default function Home() {
       </Head>
 
       <div ref={containerRef}>
+        {hasSvgDimensions() && <svg id="svg-container" width={svgWidth} height={svgHeight}>
+          <g ref={svgGroupRef} className="group-1">
+            <g className="x-axis"></g>
+            <g className="y-axis"></g>
+          </g>
+        </svg>}
         {tooltipVars
           && <TooltipComponent
             d={tooltipVars}
