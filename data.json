@@ -1,1 +1,82 @@
-[{"group":"A","variable":1,"value":"A1"},{"group":"A","variable":2,"value":"A2"},{"group":"A","variable":3,"value":"A3"},{"group":"A","variable":4,"value":"A4"},{"group":"A","variable":5,"value":"A5"},{"group":"B","variable":1,"value":"B1"},{"group":"B","variable":2,"value":"B2"},{"group":"B","variable":3,"value":"B3"},{"group":"B","variable":4,"value":"B4"},{"group":"B","variable":5,"value":"B5"},{"group":"C","variable":1,"value":"C1"},{"group":"C","variable":2,"value":"C2"},{"group":"C","variable":3,"value":"C3"},{"group":"C","variable":4,"value":"C4"},{"group":"C","variable":5,"value":"C5"},{"group":"D","variable":1,"value":"D1"},{"group":"D","variable":2,"value":"D2"},{"group":"D","variable":3,"value":"D3"},{"group":"D","variable":4,"value":"D4"},{"group":"D","variable":5,"value":"D5"},{"group":"E","variable":1,"value":"E1"},{"group":"E","variable":2,"value":"E2"},{"group":"E","variable":3,"value":"E3"},{"group":"E","variable":4,"value":"E4"},{"group":"E","variable":5,"value":"E5"}]
+[
+ {
+  "group": "A",
+  "variable": 1,
+  "value": "A1"
+ },
+ {
+  "group": "A",
+  "variable": 2,
+  "value": "A2"
+ },
+ {
+  "group": "A",
+  "variable": 3,
+  "value": "A3"
+ },
+ {
+  "group": "A",
+  "variable": 4,
+  "value": "A4"
+ },
+ {
+  "group": "B",
+  "variable": 1,
+  "value": "B1"
+ },
+ {
+  "group": "B",
+  "variable": 2,
+  "value": "B2"
+ },
+ {
+  "group": "B",
+  "variable": 3,
+  "value": "B3"
+ },
+ {
+  "group": "B",
+  "variable": 4,
+  "value": "B4"
+ },
+ {
+  "group": "C",
+  "variable": 1,
+  "value": "C1"
+ },
+ {
+  "group": "C",
+  "variable": 2,
+  "value": "C2"
+ },
+ {
+  "group": "C",
+  "variable": 3,
+  "value": "C3"
+ },
+ {
+  "group": "C",
+  "variable": 4,
+  "value": "C4"
+ },
+ {
+  "group": "D",
+  "variable": 1,
+  "value": "D1"
+ },
+ {
+  "group": "D",
+  "variable": 2,
+  "value": "D2"
+ },
+ {
+  "group": "D",
+  "variable": 3,
+  "value": "D3"
+ },
+ {
+  "group": "D",
+  "variable": 4,
+  "value": "D4"
+ }
+]

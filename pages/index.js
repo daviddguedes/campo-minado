@@ -1,10 +1,16 @@
 import Head from 'next/head'
 import { useEffect, useRef } from 'react'
 import * as d3 from 'd3';
-import data from './../data.json';
+import items from './../data.json';
 import useResizeObserver from '../hooks/resizeObserver';
 
-export default function Home() {
+export async function getStaticProps(context) {
+  return {
+    props: { data: items },
+  }
+}
+
+export default function Home({ data }) {
   const containerRef = useRef();
   const svgRef = useRef();
   const svgGroupRef = useRef();
