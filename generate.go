@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
+	"time"
 )
 
 type Item struct {
@@ -12,8 +14,30 @@ type Item struct {
 	Value    string `json:"value"`
 }
 
+func gerarNumerosMegaSena() []int {
+	rand.Seed(time.Now().UnixNano())
+	var arr []int
+
+	for len(arr) < 6 {
+		value := rand.Intn(100-1) + 1
+
+		for i := range arr {
+			if i == value {
+				break
+			}
+		}
+
+		arr = append(arr, value)
+	}
+
+	return arr
+}
+
 func main() {
 	letras := []string{"A", "B", "C", "D"}
+
+	num := gerarNumerosMegaSena()
+	fmt.Println("Mega sena: ", num)
 
 	var items []Item
 

@@ -10,6 +10,17 @@ export async function getStaticProps(context) {
   }
 }
 
+function generateMegaSena() {
+  let arr = [];
+  while (arr.length < 6) {
+    let num = Math.floor(Math.random() * 100) + 1;
+    if (!arr.includes(num)) {
+      arr.push(num);
+    }
+  }
+  return arr;
+}
+
 export default function Home({ data }) {
   const containerRef = useRef();
   const svgRef = useRef();
