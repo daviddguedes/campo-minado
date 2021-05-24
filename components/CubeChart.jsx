@@ -5,7 +5,9 @@ const CubeChart = ({ margin, size, data, children }) => {
   return (
     <ChartProvider>
       <SvgContainer margin={margin} size={size} data={data}>
-        {children}
+        <g transform={`translate(${margin.left},${margin.top})`}>
+          {children}
+        </g>
       </SvgContainer>
     </ChartProvider>
   )

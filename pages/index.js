@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
 import items from './../data.json';
 import useResizeObserver from '../hooks/resizeObserver';
-import Group from '../components/Group';
 import AxisBottom from '../components/AxisBottom';
 import AxisLeft from '../components/AxisLeft';
 import CubeChart from '../components/CubeChart';
@@ -52,11 +51,9 @@ export default function Home({ data }) {
 
       <div ref={containerRef} className="container-ref">
         <CubeChart margin={margin} size={size} data={data}>
-          <Group>
-            <AxisLeft dataKey="group" />
-            <AxisBottom dataKey="variable" />
-            <Rects dataXKey="group" dataYKey="variable" />
-          </Group>
+          <AxisLeft dataKey="group" />
+          <AxisBottom dataKey="variable" />
+          <Rects dataXKey="group" dataYKey="variable" />
         </CubeChart>
       </div>
     </div>
